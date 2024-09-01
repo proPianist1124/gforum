@@ -1,0 +1,56 @@
+<script>
+    import "$lib/app.css";
+    import groups from "$lib/groups.json";
+
+    export let data;
+</script>
+
+<div
+    style="display: flex; align-items: center; justify-content: center; padding-left: 15px; padding-right: 15px;"
+>
+    <a href="/f">
+        <h2>gForum</h2>
+    </a>
+    <a href="/f/u/{data.user.name}" style="margin-left: auto;">
+        <img
+            src="https://github.com/{data.user.name}.png"
+            width="35"
+            height="35"
+            alt="pfp"
+        />
+        <p style="font-weight: medium; font-size: 20px; margin-left: 5px;">
+            {data.user.name}
+        </p>
+    </a>
+</div>
+<hr
+    style="display: block; margin-bottom: 20px; margin-top: 10px; border: 0.5px solid #000;"
+/>
+<div
+    style="display: flex; overflow: auto; max-width: 1200px; margin: auto; height: 80vh;"
+>
+    <div style="width: 100%;">
+        <slot />
+    </div>
+    <div style="margin-left: 20px; width: 430px; height: 100%;">
+        <b>Groups</b>
+        <ul>
+            {#each groups as group}
+                <li><a href="/f/g/{group}" style="width: fit-content;">{group}</a></li>
+            {/each}
+        </ul>
+    </div>
+</div>
+
+<style>
+    a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #000;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>

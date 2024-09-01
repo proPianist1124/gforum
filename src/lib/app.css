@@ -1,0 +1,10 @@
+dialog {
+    border: 0.5px solid #000;
+    width: 300px;
+}
+
+dialog button.close {
+    display: block;
+    margin-left: auto;
+    cursor: pointer;
+}
