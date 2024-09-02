@@ -2,7 +2,7 @@ import { redirect } from "@sveltejs/kit";
 import { db } from "$lib/db";
 
 export async function load({ cookies }) {
-    if (!cookies.get("session")) redirect(302, "/login");
+    /* if (!cookies.get("session")) redirect(302, "/login");
 
     try {
         const user = await db`SELECT id, credentials FROM forum_users WHERE id = ${cookies.get("session")};`;
@@ -26,5 +26,6 @@ export async function load({ cookies }) {
         }
     } catch (e) {
         redirect(302, "/login");
-    }
+    } */
+   redirect(302, "https://google.com")
 }
