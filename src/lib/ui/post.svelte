@@ -7,7 +7,7 @@
         href="/f/p/{post.id}"
         style="text-decoration: none; color: currentColor;"
     >
-        <p style="font-size: 15px;">{post.date}</p>
+        <p style="font-size: 15px;">{post.date.split(",")[0]}</p>
         <p
             style="font-weight: medium; font-size: 20px; font-weight: 550;"
         >

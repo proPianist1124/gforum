@@ -24,12 +24,13 @@ export async function POST({ request, cookies }) {
     } else {
         try {
             const author = await db`SELECT id FROM forum_users WHERE id = ${cookies.get("session")};`;
-            await db`INSERT INTO forum_posts (id, title, content, date, author, "group") VALUES (${formData.id}, ${formData.title}, ${formData.content}, ${new Date().toLocaleString().split(",")[0]}, ${author[0].id}, ${formData.group});`;
+            await db`INSERT INTO forum_posts (id, title, content, date, author, "group") VALUES (${formData.id}, ${formData.title}, ${formData.content}, ${new Date().toLocaleString()}, ${author[0].id}, ${formData.group});`;
 
             return json({
                 success: true
             });
         } catch (e) {
+            console.log(e)
             return json({
                 error: "An error occured with creating this post."
             });

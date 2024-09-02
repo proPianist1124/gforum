@@ -74,11 +74,12 @@
 {/if}
 <h1>{data.post.title}</h1>
 <p>{data.post.content}</p>
-<a
-    href="/f/u/{data.post.author}"
-    style="display: block; font-family: monospace; margin-top: 20px; margin-bottom: 30px;"
-    >/u/{data.post.author}</a
+<div
+    style="display: flex; align-items: center; margin-top: 20px; margin-bottom: 30px; font-family: monospace;"
 >
+    <a href="/f/u/{data.post.author}">/u/{data.post.author}</a>
+    &nbsp;on {data.post.date.split(",")[0]}
+</div>
 <div style="display: flex; align-items: center;">
     <button on:click={() => vote("upvote")}>↑{data.post.upvotes}</button>
     <button on:click={() => vote("downvote")} style="margin-left: 5px;"
