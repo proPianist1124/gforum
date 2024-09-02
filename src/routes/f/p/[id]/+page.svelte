@@ -84,8 +84,8 @@
         >
             <p>{comment.body}</p>
             <a
-                href="/f/u/{comment.author.name}"
-                style="display: block;">/u/{comment.author.name}</a
+                href="/f/u/{comment.author.login}"
+                style="display: block;">/u/{comment.author.login}</a
             >
         </div>
     {/each}

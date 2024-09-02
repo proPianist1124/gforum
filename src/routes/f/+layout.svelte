@@ -11,15 +11,15 @@
     <a href="/f">
         <h2>gForum</h2>
     </a>
-    <a href="/f/u/{data.user.name}" style="margin-left: auto;">
+    <a href="/f/u/{data.user.login}" style="margin-left: auto;">
         <img
-            src="https://github.com/{data.user.name}.png"
+            src="https://github.com/{data.user.login}.png"
             width="35"
             height="35"
             alt="pfp"
         />
         <p style="font-weight: medium; font-size: 20px; margin-left: 5px;">
-            {data.user.name}
+            {data.user.login}
         </p>
     </a>
 </div>

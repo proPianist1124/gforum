@@ -4,13 +4,13 @@
     export let data;
 
     const posts = data.u
-        ? data.posts.filter((p) => p.author.name == data.u.name)
+        ? data.posts.filter((p) => p.author.login == data.u.login)
         : [];
 </script>
 
 <svelte:head>
     {#if data.u}
-        <title>/u/{data.u.name} - gForum</title>
+        <title>/u/{data.u.login} - gForum</title>
     {/if}
 </svelte:head>
 
@@ -19,12 +19,12 @@
 {:else}
     <div style="display: flex; align-items: center;">
         <img
-            src="https://github.com/{data.u.name}.png"
+            src="https://github.com/{data.u.login}.png"
             width="35"
             height="35"
-            alt={data.u.name}
+            alt={data.u.login}
         />
-        <h2 style="font-weight: normal; margin-left: 5px;">{data.user.name}</h2>
+        <h2 style="font-weight: normal; margin-left: 5px;">{data.user.login}</h2>
     </div>
     <p>{data.u.bio}</p>
     <h3 style="margin-top: 40px;">Recent Posts</h3>

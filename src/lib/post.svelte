@@ -18,7 +18,7 @@
             style="display: flex; align-items: center; font-family: monospace;"
         >
             <div style="display: flex; align-items: center;">
-                <p>/u/{post.author.name}</p>
+                <p>/u/{post.author.login}</p>
                 <div class="badge">{post.group}</div>
             </div>
             <div

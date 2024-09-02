@@ -12,7 +12,7 @@ export async function load({ params }) {
     }));
 
     const author = await db`SELECT credentials FROM forum_users WHERE id = ${post[0].author}`;
-    post[0].author = author[0].credentials.name;
+    post[0].author = author[0].credentials.login;
 
     return {
         post: post[0]

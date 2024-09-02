@@ -17,7 +17,7 @@
                 author: data.user,
                 comments: [],
                 content: e.target.content.value,
-                date: new Date().toLocaleString(),
+                date: new Date().toLocaleString().split(",")[0],
                 downvotes: 0,
                 group: e.target.group.value,
                 id,

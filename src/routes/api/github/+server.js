@@ -32,7 +32,7 @@ export async function GET({ url, cookies }) {
         if (credentials) {
             const users = await db`SELECT id, credentials FROM forum_users;`;
 
-            let user = users.filter(user => user.credentials.name == credentials.name);
+            let user = users.filter(user => user.credentials.login == credentials.login);
             
             if (user.length === 0) {
                 const id = uuid();
