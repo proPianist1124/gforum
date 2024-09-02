@@ -12,7 +12,10 @@
 
         const id = uuid();
 
-        posts = [
+        if (!groups.includes(e.target.group.value)) {
+            alert("Group does not exist!");
+        } else {
+            posts = [
             {
                 author: data.user,
                 comments: [],
@@ -37,10 +40,10 @@
                 id,
                 title: e.target.title.value,
                 content: e.target.content.value,
-                group: e.target.group.value,
-                date: new Date().toLocaleString().split(",")[0],
+                group: e.target.group.value
             }),
         });
+        }
     }
 </script>
 

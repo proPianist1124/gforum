@@ -35,7 +35,7 @@
     <div style="margin-left: 20px; width: 430px; height: 100%;">
         <div style="display: flex; align-items: center;">
             <b>Groups</b>
-            <button style="cursor: pointer; margin-left: 5px;">Create Group</button>
+            <button on:click={() => alert("feature not yet available!")} style="cursor: pointer; margin-left: 5px;">Create Group</button>
         </div>
         <ul>
             {#each groups as group}
