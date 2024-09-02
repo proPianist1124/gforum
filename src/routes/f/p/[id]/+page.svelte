@@ -71,7 +71,7 @@
         >↓{data.post.downvotes}</button
     >
 </div>
-<h3>Comments</h3>
+<h3>Comments ({comments.length})</h3>
 <button on:click={() => document.getElementById("add-comment").showModal()}
     >Add Comment</button
 >
