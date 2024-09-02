@@ -30,7 +30,9 @@ export async function GET({ url, cookies }) {
         }).then(res => res.json());
 
         if (credentials) {
-            const user = await db`SELECT id FROM forum_users WHERE credentials = ${credentials};`;
+            const users = await db`SELECT id, credentials FROM forum_users;`;
+
+            let user = users.filter(user => user.credentials.name == credentials.name);
             
             if (user.length === 0) {
                 const id = uuid();
