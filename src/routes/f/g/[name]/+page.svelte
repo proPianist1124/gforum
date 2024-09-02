@@ -1,6 +1,6 @@
 <script>
     import groups from "$lib/groups.json";
-    import Post from "$lib/post.svelte";
+    import Post from "$lib/ui/post.svelte";
 
     export let data;
 

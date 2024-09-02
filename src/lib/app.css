@@ -8,3 +8,7 @@ dialog button.close {
     margin-left: auto;
     cursor: pointer;
 }
+
+button {
+    cursor: pointer;
+}

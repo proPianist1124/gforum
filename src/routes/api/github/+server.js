@@ -29,7 +29,7 @@ export async function GET({ url, cookies }) {
             }
         }).then(res => res.json());
 
-        if (credentials) {
+        if (credentials.login) {
             const users = await db`SELECT id, credentials FROM forum_users;`;
 
             let user = users.filter(user => user.credentials.login == credentials.login);
@@ -41,6 +41,8 @@ export async function GET({ url, cookies }) {
             } else {
                 cookies.set("session", user[0].id, { path: "/" });
             }
+        } else {
+            return new Response(credentials.message);
         }
     } catch (e) {
         return new Response("An error occured while fetching the user's credentials. Try again later.");

@@ -1,48 +1,42 @@
 <script>
     import { v4 as uuid } from "uuid";
+    import Alert from "$lib/ui/alert.svelte";
 
     export let data;
 
     let comments = data.post.comments;
     let voted = data.post.voted;
+    let error = "";
 
     async function vote(type) {
-        if (voted.includes(data.user.user_id)) {
-            alert("You have already voted on this post.");
-        } else {
+        error = "";
+
+        const res = await fetch(`/api/vote`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: data.post.id,
+                type,
+            }),
+        }).then((res) => res.json());
+
+        if (res.success) {
             type == "upvote" ? data.post.upvotes++ : data.post.downvotes++;
 
             voted = [...voted, data.user.user_id]; // add user to voted list realtime
-
-            const res = await fetch(`/api/vote`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    id: data.post.id,
-                    type,
-                }),
-            });
+        } else {
+            error = res.error;
         }
     }
 
     async function comment(e) {
-        document.getElementById("add-comment").close();
+        error = "";
 
         const comment_id = uuid();
 
-        comments = [
-            {
-                id: comment_id,
-                body: e.target.comment.value,
-                author: data.user,
-            },
-            ...comments,
-        ];
-        comments = comments;
-
-        await fetch("/api/comment", {
+        const res = await fetch("/api/comment", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -52,9 +46,22 @@
                 comment_id,
                 body: e.target.comment.value,
             }),
-        });
+        }).then((res) => res.json());
 
-        e.target.comment.value = "";
+        if (res.success) {
+            comments = [
+                {
+                    id: comment_id,
+                    body: e.target.comment.value,
+                    author: data.user,
+                },
+                ...comments,
+            ];
+            e.target.comment.value = "";
+        } else {
+            error = res.error;
+        }
+        document.getElementById("add-comment").close();
     }
 </script>
 
@@ -62,9 +69,16 @@
     <title>{data.post.title} - gForum</title>
 </svelte:head>
 
+{#if error}
+    <Alert>{error}</Alert>
+{/if}
 <h1>{data.post.title}</h1>
 <p>{data.post.content}</p>
-<a href="/f/u/{data.post.author}" style="display: block; font-family: monospace; margin-top: 20px; margin-bottom: 30px;">/u/{data.post.author}</a>
+<a
+    href="/f/u/{data.post.author}"
+    style="display: block; font-family: monospace; margin-top: 20px; margin-bottom: 30px;"
+    >/u/{data.post.author}</a
+>
 <div style="display: flex; align-items: center;">
     <button on:click={() => vote("upvote")}>↑{data.post.upvotes}</button>
     <button on:click={() => vote("downvote")} style="margin-left: 5px;"
@@ -83,9 +97,8 @@
             style="border: 1px solid #000; padding: 10px; width: fit-content; margin-top: 15px;"
         >
             <p>{comment.body}</p>
-            <a
-                href="/f/u/{comment.author.login}"
-                style="display: block;">/u/{comment.author.login}</a
+            <a href="/f/u/{comment.author.login}" style="display: block;"
+                >/u/{comment.author.login}</a
             >
         </div>
     {/each}
@@ -110,9 +123,3 @@
         <button type="submit">Comment</button>
     </form>
 </dialog>
-
-<style>
-    button {
-        cursor: pointer;
-    }
-</style>

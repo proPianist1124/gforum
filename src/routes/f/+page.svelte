@@ -1,37 +1,21 @@
 <script>
     import { v4 as uuid } from "uuid";
-    import Post from "$lib/post.svelte";
+    import Post from "$lib/ui/post.svelte";
+    import Alert from "$lib/ui/alert.svelte";
     import groups from "$lib/groups.json";
 
     export let data;
 
+    let error = "";
+
     let posts = data.posts;
 
     async function create(e) {
-        document.getElementById("create-post").close();
+        error = "";
 
         const id = uuid();
 
-        if (!groups.includes(e.target.group.value)) {
-            alert("Group does not exist!");
-        } else {
-            posts = [
-            {
-                author: data.user,
-                comments: [],
-                content: e.target.content.value,
-                date: new Date().toLocaleString().split(",")[0],
-                downvotes: 0,
-                group: e.target.group.value,
-                id,
-                title: e.target.title.value,
-                upvotes: 0,
-                voted: [],
-            },
-            ...posts,
-        ];
-
-        await fetch("/api/create", {
+        const res = await fetch("/api/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -40,9 +24,29 @@
                 id,
                 title: e.target.title.value,
                 content: e.target.content.value,
-                group: e.target.group.value
+                group: e.target.group.value,
             }),
-        });
+        }).then((res) => res.json());
+
+        if (res.success) {
+            document.getElementById("create-post").close();
+            posts = [
+                {
+                    author: data.user,
+                    comments: [],
+                    content: e.target.content.value,
+                    date: new Date().toLocaleString().split(",")[0],
+                    downvotes: 0,
+                    group: e.target.group.value,
+                    id,
+                    title: e.target.title.value,
+                    upvotes: 0,
+                    voted: [],
+                },
+                ...posts,
+            ];
+        } else {
+            error = res.error;
         }
     }
 </script>
@@ -53,7 +57,7 @@
 
 <button
     on:click={() => document.getElementById("create-post").showModal()}
-    style="cursor: pointer; margin-right: 5px;"
+    style="margin-right: 5px;"
 >
     New Post
 </button>
@@ -71,10 +75,18 @@
         on:click={() => document.getElementById("create-post").close()}
         class="close">x</button
     >
+    {#if error}
+        <Alert>{error}</Alert>
+    {/if}
     <h2>Create Post</h2>
     <form on:submit|preventDefault={create} autocomplete="off">
         <div style="display: flex; align-items: center;">
-            <input type="text" name="title" placeholder="post title" style="width: 100%;" />
+            <input
+                type="text"
+                name="title"
+                placeholder="post title"
+                style="width: 100%;"
+            />
             <input
                 type="text"
                 name="content"
@@ -92,7 +104,7 @@
         </select>
         <button
             type="submit"
-            style="display: block; width: 100%; cursor: pointer;">Create</button
+            style="display: block; width: 100%;">Create</button
         >
     </form>
 </dialog>
