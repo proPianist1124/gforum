@@ -9,7 +9,7 @@
     >
         <p style="font-size: 15px;">{post.date}</p>
         <p
-            style="font-weight: medium; font-size: 20px; text-decoration: underline;"
+            style="font-weight: medium; font-size: 20px; font-weight: 550;"
         >
             {post.title}
         </p>
@@ -57,6 +57,7 @@
         border: 1px solid #000;
         padding: 3px;
         width: fit-content;
-        margin-left: 5px;
+        margin-left: 7px;
+        font-family: times;
     }
 </style>

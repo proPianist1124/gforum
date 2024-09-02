@@ -33,10 +33,17 @@
         <slot />
     </div>
     <div style="margin-left: 20px; width: 430px; height: 100%;">
-        <b>Groups</b>
+        <div style="display: flex; align-items: center;">
+            <b>Groups</b>
+            <button style="cursor: pointer; margin-left: 5px;">Create Group</button>
+        </div>
         <ul>
             {#each groups as group}
-                <li><a href="/f/g/{group}" style="width: fit-content;">{group}</a></li>
+                <li>
+                    <a href="/f/g/{group}" style="width: fit-content;"
+                        >{group}</a
+                    >
+                </li>
             {/each}
         </ul>
     </div>

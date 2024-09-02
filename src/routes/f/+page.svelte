@@ -38,7 +38,7 @@
                 title: e.target.title.value,
                 content: e.target.content.value,
                 group: e.target.group.value,
-                date: new Date().toLocaleString().split(",")[0]
+                date: new Date().toLocaleString().split(",")[0],
             }),
         });
     }
@@ -70,8 +70,15 @@
     >
     <h2>Create Post</h2>
     <form on:submit|preventDefault={create} autocomplete="off">
-        <input type="text" name="title" placeholder="post title" />
-        <input type="text" name="content" placeholder="what's on your mind?" />
+        <div style="display: flex; align-items: center;">
+            <input type="text" name="title" placeholder="post title" style="width: 100%;" />
+            <input
+                type="text"
+                name="content"
+                placeholder="what's on your mind?"
+                style="margin-left: 5px; width: 100%;"
+            />
+        </div>
         <select
             name="group"
             style="margin-top: 5px; margin-bottom: 5px; width: 100%;"
