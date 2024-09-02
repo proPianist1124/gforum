@@ -38,6 +38,7 @@
                 title: e.target.title.value,
                 content: e.target.content.value,
                 group: e.target.group.value,
+                date: new Date().toLocaleString().split(",")[0]
             }),
         });
     }
