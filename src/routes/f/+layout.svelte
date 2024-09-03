@@ -27,9 +27,9 @@
     style="display: block; margin-bottom: 20px; margin-top: 10px; border: 0.5px solid #000;"
 />
 <div
-    style="display: flex; overflow: auto; max-width: 1200px; margin: auto; height: 80vh;"
+    style="display: flex; max-width: 1200px; margin: auto; height: 80vh;"
 >
-    <div style="width: 100%;">
+    <div style="width: 100%; overflow: auto;">
         <slot />
     </div>
     <div style="margin-left: 20px; width: 430px; height: 100%;">

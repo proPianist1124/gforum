@@ -24,7 +24,7 @@
             <div
                 style="display: block; margin-left: auto; font-family: 'Times New Roman';"
             >
-                <span style="margin-right: 10px;">{post.comments.length} comment{post.comments.length === 1 ? "" : "s"}</span>
+                <span style="margin-right: 10px;">{post.comments} comment{post.comments === 1 ? "" : "s"}</span>
                 ↑{post.upvotes} ↓{post.downvotes}
             </div>
         </div>

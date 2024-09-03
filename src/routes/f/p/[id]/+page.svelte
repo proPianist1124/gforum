@@ -5,7 +5,6 @@
     export let data;
 
     let comments = data.post.comments;
-    let voted = data.post.voted;
     let error = "";
 
     async function vote(type) {
@@ -24,8 +23,6 @@
 
         if (res.success) {
             type == "upvote" ? data.post.upvotes++ : data.post.downvotes++;
-
-            voted = [...voted, data.user.user_id]; // add user to voted list realtime
         } else {
             error = res.error;
         }

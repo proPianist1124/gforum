@@ -5,7 +5,7 @@ import { db } from "$lib/db";
 export async function POST({ request, cookies }) {
     const formData = await request.json();
 
-    if (!formData.comment) {
+    if (!formData.body) {
         return json({
             error: "Comment is required"
         });
