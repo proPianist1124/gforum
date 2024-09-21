@@ -30,7 +30,6 @@ export async function POST({ request, cookies }) {
                 success: true
             });
         } catch (e) {
-            console.log(e)
             return json({
                 error: "An error occured with creating this post."
             });

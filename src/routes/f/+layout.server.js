@@ -23,7 +23,7 @@ export async function load({ cookies }) {
                 user_id: user[0].id,
                 ...user[0].credentials
             },
-            posts: posts.reverse()
+            posts: posts.sort((a, b) => a.date - b.date).reverse()
         }
     } catch (e) {
         redirect(302, "/login");

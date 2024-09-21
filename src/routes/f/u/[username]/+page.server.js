@@ -9,7 +9,6 @@ export async function load({ params }) {
             u: user[0].credentials
         }
     } catch (e) {
-        console.log(e)
         return {
             u: null
         }

@@ -64,6 +64,8 @@
     async function deletePost() {
         if (!data.is_author) {
             alert("you are not the author of this post.");
+        } else {
+            alert("Deleting post...");
         }
     }
 </script>

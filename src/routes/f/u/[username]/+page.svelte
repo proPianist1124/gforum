@@ -24,9 +24,12 @@
             height="35"
             alt={data.u.login}
         />
-        <h2 style="font-weight: normal; margin-left: 5px;">{data.user.login}</h2>
+        <h2 style="font-weight: normal; margin-left: 5px;">{data.u.name && data.u.name != data.u.login ? `${data.u.name} (${data.u.login})` : data.u.login}</h2>
+        <a href="https://github.com/{data.u.login}" target="_blank" style="margin-left: auto;">
+            <button>github</button>
+        </a>
     </div>
-    <p>{data.u.bio}</p>
+    <p>{data.u.bio ? data.u.bio : "No bio available"}</p>
     <h3 style="margin-top: 40px;">Recent Posts</h3>
     {#if posts.length === 0}
         <p style="color: red;">This user has made 0 posts.</p>
