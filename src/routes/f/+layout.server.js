@@ -26,7 +26,6 @@ export async function load({ cookies }) {
             posts: posts.reverse()
         }
     } catch (e) {
-        console.log(e);
         redirect(302, "/login");
     }
 }

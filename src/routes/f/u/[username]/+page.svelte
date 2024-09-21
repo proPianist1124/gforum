@@ -10,7 +10,7 @@
 
 <svelte:head>
     {#if data.u}
-        <title>/u/{data.u.login} - gForum</title>
+        <title>/u/{data.u.login} - {data.forum.name}</title>
     {/if}
 </svelte:head>
 

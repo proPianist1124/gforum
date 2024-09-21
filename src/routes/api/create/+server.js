@@ -13,13 +13,13 @@ export async function POST({ request, cookies }) {
         return json({
             error: "You must fill out all fields."
         });
-    } else if (formData.title.length > 64) {
+    } else if ( formData.title.length <= 5 || formData.title.length > 64) {
         return json({
-            error: "Title must be under 64 chars."
+            error: "Title must be between 5 char and 64 chars."
         });
-    } else if (formData.content.length > 250) {
+    } else if (formData.content.length <= 5 || formData.content.length > 250) {
         return json({
-            error: "Content must be under 250 chars."
+            error: "Content must be between 5 char and 250 chars."
         });
     } else {
         try {

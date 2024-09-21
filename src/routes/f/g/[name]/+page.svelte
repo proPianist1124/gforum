@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-    <title>{data.group} - gForum</title>
+    <title>/g/{data.group} - {data.forum.name}</title>
 </svelte:head>
 
 {#if !groups.includes(data.group)}

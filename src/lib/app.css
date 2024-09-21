@@ -12,3 +12,12 @@ dialog button.close {
 button {
     cursor: pointer;
 }
+
+button.danger {
+    color: #fff;
+    background-color: #ff0000;
+}
+
+button.danger:hover {
+    background-color: #fd7878;
+}

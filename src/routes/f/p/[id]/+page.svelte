@@ -4,7 +4,7 @@
 
     export let data;
 
-    let comments = data.post.comments;
+    let comments = data.post ? data.post.comments : [];
     let error = "";
 
     async function vote(type) {
@@ -60,64 +60,93 @@
         }
         document.getElementById("add-comment").close();
     }
+
+    async function deletePost() {
+        if (!data.is_author) {
+            alert("you are not the author of this post.");
+        }
+    }
 </script>
 
 <svelte:head>
-    <title>{data.post.title} - gForum</title>
+    <title>{data.post ? `"${data.post.title}"` : "Post Not Found"} - {data.forum.name}</title>
 </svelte:head>
 
 {#if error}
     <Alert>{error}</Alert>
 {/if}
-<h1>{data.post.title}</h1>
-<p>{data.post.content}</p>
-<div
-    style="display: flex; align-items: center; margin-top: 20px; margin-bottom: 30px; font-family: monospace;"
->
-    <a href="/f/u/{data.post.author}">/u/{data.post.author}</a>
-    &nbsp;on {data.post.date.split(",")[0]}
-</div>
-<div style="display: flex; align-items: center;">
-    <button on:click={() => vote("upvote")}>↑{data.post.upvotes}</button>
-    <button on:click={() => vote("downvote")} style="margin-left: 5px;"
-        >↓{data.post.downvotes}</button
-    >
-</div>
-<h3>Comments ({comments.length})</h3>
-<button on:click={() => document.getElementById("add-comment").showModal()}
-    >Add Comment</button
->
-{#if comments.length === 0}
-    <p style="color: red;">0 comments available.</p>
-{:else}
-    {#each comments as comment}
+{#if data.post}
+    <h1>{data.post.title}</h1>
+    <p>{data.post.content}</p>
+    <div style="display: flex; align-items: center;">
         <div
-            style="border: 1px solid #000; padding: 10px; width: fit-content; margin-top: 15px;"
+            style="display: flex; align-items: center; font-family: monospace;"
         >
-            <p>{comment.body}</p>
-            <a href="/f/u/{comment.author.login}" style="display: block;"
-                >/u/{comment.author.login}</a
-            >
+            <a href="/f/u/{data.post.author}">/u/{data.post.author}</a>
+            &nbsp;on {data.post.date.split(",")[0]}
         </div>
-    {/each}
+        <div
+            style="display: flex; align-items: center; margin-top: 30px; margin-bottom: 30px; margin-left: auto; gap: 5px;"
+        >
+            <button on:click={() => vote("upvote")}>↑{data.post.upvotes}</button
+            >
+            <button on:click={() => vote("downvote")}
+                >↓{data.post.downvotes}</button
+            >
+            {#if data.is_author}
+                <button on:click={deletePost} class="danger">
+                    Delete
+                </button>
+            {:else}
+                <button class="danger">
+                    Report
+                </button>
+            {/if}
+        </div>
+    </div>
+    <div style="padding: 10px; border: 1px solid #000;">
+        <h3>Comments ({comments.length})</h3>
+        <button
+            on:click={() => document.getElementById("add-comment").showModal()}
+            >Add Comment</button
+        >
+        {#if comments.length === 0}
+            <p style="font-style: italic;">0 comments available.</p>
+        {:else}
+            {#each comments as comment}
+                <div
+                    style="border: 1px solid #000; padding: 10px; width: fit-content; margin-top: 15px;"
+                >
+                    <p>{comment.body}</p>
+                    <a
+                        href="/f/u/{comment.author.login}"
+                        style="display: block; width: fit-content;">/u/{comment.author.login}</a
+                    >
+                </div>
+            {/each}
+        {/if}
+    </div>
+    <dialog id="add-comment" style="width: 300px;">
+        <button
+            on:click={() => document.getElementById("add-comment").close()}
+            class="close">x</button
+        >
+        <h2>Add Comment</h2>
+        <form
+            on:submit|preventDefault={comment}
+            autocomplete="off"
+            style="display: flex; align-items: center;"
+        >
+            <input
+                type="text"
+                name="comment"
+                placeholder="your comment..."
+                style="width: 100%; margin-right: 5px;"
+            />
+            <button type="submit">Comment</button>
+        </form>
+    </dialog>
+{:else}
+    <h1 style="color: red;">Post Not Found</h1>
 {/if}
-<dialog id="add-comment" style="width: 300px;">
-    <button
-        on:click={() => document.getElementById("add-comment").close()}
-        class="close">x</button
-    >
-    <h2>Add Comment</h2>
-    <form
-        on:submit|preventDefault={comment}
-        autocomplete="off"
-        style="display: flex; align-items: center;"
-    >
-        <input
-            type="text"
-            name="comment"
-            placeholder="your comment..."
-            style="width: 100%; margin-right: 5px;"
-        />
-        <button type="submit">Comment</button>
-    </form>
-</dialog>
+<dialog id=""></dialog>

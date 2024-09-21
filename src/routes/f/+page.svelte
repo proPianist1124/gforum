@@ -52,7 +52,7 @@
 </script>
 
 <svelte:head>
-    <title>gForum</title>
+    <title>{data.forum.name}</title>
 </svelte:head>
 
 <button
