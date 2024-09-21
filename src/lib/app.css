@@ -1,3 +1,9 @@
+body {
+    font-family: Verdana, sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+
 dialog {
     border: 0.5px solid #000;
     width: 300px;

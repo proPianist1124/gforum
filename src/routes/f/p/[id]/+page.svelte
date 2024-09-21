@@ -71,7 +71,10 @@
 </script>
 
 <svelte:head>
-    <title>{data.post ? `"${data.post.title}"` : "Post Not Found"} - {data.forum.name}</title>
+    <title
+        >{data.post ? `"${data.post.title}"` : "Post Not Found"} - {data.forum
+            .name}</title
+    >
 </svelte:head>
 
 {#if error}
@@ -96,17 +99,19 @@
                 >↓{data.post.downvotes}</button
             >
             {#if data.is_author}
-                <button on:click={deletePost} class="danger">
+                <button
+                    on:click={() =>
+                        document.getElementById("delete").showModal()}
+                    class="danger"
+                >
                     Delete
                 </button>
             {:else}
-                <button class="danger">
-                    Report
-                </button>
+                <button class="danger"> Report </button>
             {/if}
         </div>
     </div>
-    <div style="padding: 10px; border: 1px solid #000;">
+    <div style="padding: 10px; border: 1px solid #000; overflow: auto; height: 400px;">
         <h3>Comments ({comments.length})</h3>
         <button
             on:click={() => document.getElementById("add-comment").showModal()}
@@ -122,7 +127,8 @@
                     <p>{comment.body}</p>
                     <a
                         href="/f/u/{comment.author.login}"
-                        style="display: block; width: fit-content;">/u/{comment.author.login}</a
+                        style="display: block; width: fit-content;"
+                        >/u/{comment.author.login}</a
                     >
                 </div>
             {/each}
@@ -151,4 +157,12 @@
 {:else}
     <h1 style="color: red;">Post Not Found</h1>
 {/if}
-<dialog id=""></dialog>
+<dialog id="delete">
+    <button
+        on:click={() => document.getElementById("delete").close()}
+        class="close">x</button
+    >
+    <h2>Are You SURE?</h2>
+    <p>Deleting the post is irreversible.</p>
+    <button class="danger" style="width: 100%;">Delete Permanently!</button>
+</dialog>
