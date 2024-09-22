@@ -1,4 +1,6 @@
 <script>
+    import { navigating } from "$app/stores";
+
     export let data;
 </script>
 
@@ -30,4 +32,8 @@
         content="https://gforum-nu.vercel.app/favicon.ico"
     />
 </svelte:head>
-<slot />
+{#if $navigating}
+    Loading...
+{:else}
+    <slot />
+{/if}

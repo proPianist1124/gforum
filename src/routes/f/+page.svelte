@@ -1,5 +1,4 @@
 <script>
-    import { v4 as uuid } from "uuid";
     import Post from "$lib/ui/post.svelte";
     import Alert from "$lib/ui/alert.svelte";
     import groups from "$lib/groups.json";
@@ -13,15 +12,12 @@
     async function create(e) {
         error = "";
 
-        const id = uuid();
-
         const res = await fetch("/api/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id,
                 title: e.target.title.value,
                 content: e.target.content.value,
                 group: e.target.group.value,
@@ -38,7 +34,7 @@
                     date: new Date().toLocaleString().split(",")[0],
                     downvotes: 0,
                     group: e.target.group.value,
-                    id,
+                    id: res.id,
                     title: e.target.title.value,
                     upvotes: 0,
                     voted: [],

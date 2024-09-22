@@ -18,12 +18,14 @@ export async function load({ cookies }) {
             return post;
         }));
 
+        // sort by comments: posts.sort((a, b) => b.comments - a.comments)
+
         return {
             user: {
                 user_id: user[0].id,
                 ...user[0].credentials
             },
-            posts: posts.sort((a, b) => a.date - b.date).reverse()
+            posts: posts.sort((a, b) => new Date(b.date) - new Date(a.date))
         }
     } catch (e) {
         redirect(302, "/login");

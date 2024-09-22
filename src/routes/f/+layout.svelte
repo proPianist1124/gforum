@@ -26,11 +26,11 @@
 <hr
     style="display: block; margin-bottom: 20px; margin-top: 10px; border: 0.5px solid #000;"
 />
-<div style="display: flex; max-width: 1200px; margin: auto; height: 80vh;">
+<div class="layout">
     <div style="width: 100%; overflow: auto;">
         <slot />
     </div>
-    <div style="margin-left: 20px; width: 430px; height: 100%;">
+    <div class="groups">
         <div style="display: flex; align-items: center;">
             <b>Groups</b>
             <button
@@ -60,5 +60,35 @@
 
     a:hover {
         text-decoration: underline;
+    }
+
+    div.layout {
+        display: flex;
+        max-width: 1200px;
+        margin: auto;
+        height: 80vh;
+    }
+
+    div.groups {
+        margin-left: 20px;
+        width: 430px;
+        height: 100%;
+    }
+
+    @media (max-width: 800px) {
+        div.layout {
+            display: block;
+        }
+
+        div.groups {
+            display: block;
+            margin-top: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid lightgray;
+            padding: 15px;
+            margin-left: 0px;
+            width: auto;
+            height: auto;
+        }
     }
 </style>

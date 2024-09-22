@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { json } from "@sveltejs/kit";
 import { db } from "$lib/db";
 import groups from "$lib/groups.json";
@@ -23,11 +24,14 @@ export async function POST({ request, cookies }) {
         });
     } else {
         try {
+            const id = uuid();
+
             const author = await db`SELECT id FROM forum_users WHERE id = ${cookies.get("session")};`;
-            await db`INSERT INTO forum_posts (id, title, content, date, author, "group") VALUES (${formData.id}, ${formData.title}, ${formData.content}, ${new Date().toLocaleString()}, ${author[0].id}, ${formData.group});`;
+            await db`INSERT INTO forum_posts (id, title, content, date, author, "group") VALUES (${id}, ${formData.title}, ${formData.content}, ${new Date().toLocaleString()}, ${author[0].id}, ${formData.group});`;
 
             return json({
-                success: true
+                success: true,
+                id
             });
         } catch (e) {
             return json({

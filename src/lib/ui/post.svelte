@@ -13,19 +13,19 @@
         >
             {post.title}
         </p>
-        <p>{post.content.split(" ").slice(0, 20).join(" ")}...</p>
+        <p>{post.content.split(" ").length >= 10 ? `${post.content.split(" ").slice(0, 10).join(" ")}...` : post.content}</p>
         <div
-            style="display: flex; align-items: center; font-family: monospace;"
+            style="display: flex; align-items: center;"
         >
-            <div style="display: flex; align-items: center;">
-                <p>/u/{post.author.login}</p>
+            <div style="display: flex; align-items: center; margin-top: 20px;">
+                <p style="font-family: monospace;">/u/{post.author.login}</p>
                 <div class="badge">{post.group}</div>
             </div>
             <div
-                style="display: block; margin-left: auto; font-family: 'Times New Roman';"
+                style="display: block; margin-left: auto; font-family: 'Verdana';"
             >
                 <span style="margin-right: 10px;">{post.comments} comment{post.comments === 1 ? "" : "s"}</span>
-                ↑{post.upvotes} ↓{post.downvotes}
+                <span style="color: green;">↑{post.upvotes}</span> <span style="color: #ff0000">↓{post.downvotes}</span>
             </div>
         </div>
     </a>
@@ -58,6 +58,7 @@
         padding: 3px;
         width: fit-content;
         margin-left: 7px;
-        font-family: times;
+        font-family: 'Verdana';
+        font-size: 13px;
     }
 </style>

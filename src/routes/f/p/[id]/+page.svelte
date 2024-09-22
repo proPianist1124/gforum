@@ -65,8 +65,22 @@
         if (!data.is_author) {
             alert("you are not the author of this post.");
         } else {
-            alert("Deleting post...");
+            await fetch("/api/delete", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: data.post.id,
+                }),
+            });
+
+            window.location.href = "/f";
         }
+    }
+
+    async function report() {
+        alert(`Thanks for reporting ${data.post.author}! Our moderation team will look into this!`);
     }
 </script>
 
@@ -107,11 +121,11 @@
                     Delete
                 </button>
             {:else}
-                <button class="danger"> Report </button>
+                <button on:click={() => document.getElementById("report").showModal()} class="danger"> Report </button>
             {/if}
         </div>
     </div>
-    <div style="padding: 10px; border: 1px solid #000; overflow: auto; height: 400px;">
+    <div style="padding: 10px; border-top: 1px solid #000; overflow: auto; height: 450px;">
         <h3>Comments ({comments.length})</h3>
         <button
             on:click={() => document.getElementById("add-comment").showModal()}
@@ -164,5 +178,14 @@
     >
     <h2>Are You SURE?</h2>
     <p>Deleting the post is irreversible.</p>
-    <button class="danger" style="width: 100%;">Delete Permanently!</button>
+    <button on:click={deletePost} class="danger" style="width: 100%;">Delete Permanently!</button>
+</dialog>
+<dialog id="report">
+    <button
+        on:click={() => document.getElementById("report").close()}
+        class="close">x</button
+    >
+    <h2>Report {data.post.author}?</h2>
+    <p>Please note false reports may result in a ban.</p>
+    <button on:click={report} class="danger" style="width: 100%;">Report</button>
 </dialog>

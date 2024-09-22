@@ -4,7 +4,7 @@
     export let data;
 
     const posts = data.u
-        ? data.posts.filter((p) => p.author.login == data.u.login)
+        ? data.posts.filter((p) => p.author.login == data.u.login).sort((a, b) => new Date(b.date) - new Date(a.date))
         : [];
 </script>
 
@@ -24,8 +24,16 @@
             height="35"
             alt={data.u.login}
         />
-        <h2 style="font-weight: normal; margin-left: 5px;">{data.u.name && data.u.name != data.u.login ? `${data.u.name} (${data.u.login})` : data.u.login}</h2>
-        <a href="https://github.com/{data.u.login}" target="_blank" style="margin-left: auto;">
+        <h2 style="font-weight: normal; margin-left: 5px;">
+            {data.u.name && data.u.name != data.u.login
+                ? `${data.u.name} (${data.u.login})`
+                : data.u.login}
+        </h2>
+        <a
+            href="https://github.com/{data.u.login}"
+            target="_blank"
+            style="margin-left: auto;"
+        >
             <button>github</button>
         </a>
     </div>
@@ -34,8 +42,10 @@
     {#if posts.length === 0}
         <p style="color: red;">This user has made 0 posts.</p>
     {:else}
-        {#each posts as post}
-            <Post {post} />
-        {/each}
+        <div style="height: 450px; overflow: auto;">
+            {#each posts as post}
+                <Post {post} />
+            {/each}
+        </div>
     {/if}
 {/if}
