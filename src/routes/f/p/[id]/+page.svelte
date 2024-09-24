@@ -80,6 +80,7 @@
     }
 
     async function report() {
+        document.getElementById("report").close();
         alert(`Thanks for reporting ${data.post.author}! Our moderation team will look into this!`);
     }
 </script>
