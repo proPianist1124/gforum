@@ -1,4 +1,5 @@
 {
     "name": "gForum",
-    "description": "Simple and open-source selfhosted forum software"
+    "description": "Simple and open-source selfhosted forum software",
+    "admins": ["proPianist1124"]
 }
